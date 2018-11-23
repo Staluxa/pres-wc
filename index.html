@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Web Components Presentation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="shower/themes/ribbon/styles/styles.css">
+    <style>
+        .shower {
+            --slide-ratio: calc(16 / 9);
+        }
+    </style>
+</head>
+<body class="shower list">
+
+    <header class="caption">
+        <h1>Web components</h1>
+        <p>This year, for sure</p>
+    </header>
+
+    <section class="slide" id="cover">
+        <figure>
+            <img class="cover" src="pictures/logo-2018.jpg" alt="2018 - Year of Web Components">
+            <figcaption class="copyright right white">
+                <a href="https://www.youtube.com/watch?v=SgnE3p1qF-c&t">© Dominik Kundel</a>
+            </figcaption>
+        </figure>
+        <style>
+            #cover p a {
+                color: white;
+            }
+        </style>
+    </section>
+
+    <section class="slide" id="cover-2">
+        <figure>
+            <img class="cover" src="pictures/logo-2013.jpg" alt="2013 - Year of Web Components">
+            <figcaption class="copyright right white">
+                <a href="https://www.youtube.com/watch?v=SgnE3p1qF-c&t">© Dominik Kundel</a>
+            </figcaption>
+        </figure>
+        <style>
+            #cover-2 p a {
+                color: white;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Web Components</h2>
+        <ol>
+            <li>HTML Templates</li>
+            <li class="next">Custom Elements</li>
+            <li class="next">Shadow DOM</li>
+            <li id="imports--del" class="next">HTML Imports
+                <del class="next"></del>
+            </li>
+        </ol>
+        <style>
+            #imports--del {
+                display: inline-block;
+                position: relative;
+            }
+            #imports--del .active {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 50%;
+                border-bottom: 2px solid black;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Template</h2>
+        <div>
+            <pre>
+                <code>&lt;template id="t"&gt;</code>
+                <code>    &lt;figure&gt;</code>
+                <code>        &lt;img src="" /&gt;</code>
+                <code>        &lt;figcaption&gt;<mark>&lt;slot&gt;&lt;/slot&gt;</mark>&lt;/figcaption&gt;</code>
+                <code>    &lt;/figure&gt;</code>
+                <code>&lt;/template&gt;</code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2 class="tight">Template in JS</h2>
+        <p><code>&lt;template id="t"&gt;...&lt;/template&gt;</code></p>
+        <div>
+            <pre>
+                <code>if ('content' in document.createElement('template')) {</code>
+                <code>    const t = document.querySelector('#t');</code>
+                <code>    const clone = document.importNode(t.content, true);</code>
+                <code>} else {</code>
+                <code>    <span class="comment">// Fallback for IE</span></code>
+                <code>}</code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover w h" src="pictures/support-tmp.png" alt="Browser support for HTML template">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2 class="tight">Autonomous custom elements</h2>
+        <p><code>&lt;custom-element&gt;&lt;/custom-element&gt;</code></p>
+        <div>
+            <pre>
+                <code>class CustomElement extends <mark>HTMLElement</mark> {</code>
+                <code>    constructor() {</code>
+                <code>        super();</code>
+                <code>    }</code>
+                <code>    <span class="comment">// Component logic</span></code>
+                <code>}</code>
+                <code>customElements.define(<mark>"custom-element"</mark>, CustomElement);</code>
+            </pre>
+        </div>
+        <style>
+            .slide .tight {
+                margin-bottom: 18px;
+            }
+            .small-note {
+                font-size: 18px;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2 class="tight">Customized built-in elements*  <strong class="next small-note">* - Safari refusing to implement it</strong></h2>
+        <p class="tight"><code>&lt;button is="c-b"&gt;Click Me!&lt;/button&gt;</code></p>
+        <div>
+            <pre>
+                <code>class CB extends <mark>HTMLButtonElement</mark> {</code>
+                <code>    constructor() {</code>
+                <code>        super();</code>
+                <code>    }</code>
+                <code>    <span class="comment">// Component logic</span></code>
+                <code>}</code>
+                <code>customElements.define("c-b", CB, <mark>{ extends: "button" }</mark>);</code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Lifecycle callbacks</h2>
+        <ul>
+            <li><strong>connectedCallback</strong>( )</li>
+            <li><strong>disconnectedCallback</strong>( )</li>
+            <li><strong>adoptedCallback</strong>( )</li>
+            <li><strong>attributeChangedCallback</strong>(name, oldValue, newValue)
+                <ul class="next">
+                    <li><code>static get <mark>observedAttributes</mark>() { return [...] }</code></li>
+                    <li><code>get name() { }</code></li>
+                    <li><code>set name(val) { }</code></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover w h" src="pictures/support-ce.png" alt="Browser support for custom elements">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2>Shadow DOM</h2>
+        <div>
+            <pre>
+                <code>this.attachShadow({<mark>mode: open</mark>});</code>
+                <code>this.shadowRoot.appendChild(clone)</code>
+            </pre>
+            <div class="columns two next">
+                <ul>
+                    <li><code>$('figure')</span></code></li>
+                    <li><code>$('figure').children </code></li>
+                    <li class="next"><code>$('figure').shadowRoot.querySelector('figure')</code></li>
+                </ul>
+                <ul class="next">
+                    <li><code><span class="comment">// null</span></code></li>
+                    <li><code><span class="comment">// []</span></code></li>
+                    <li><code><span class="comment">// &lt;figure&gt;</span></code></li>
+                </ul>
+            </div>
+        </div>
+        <style>
+            .columns.two code {
+                font-size: 16px;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <img class="cover w h" src="pictures/support-sd.png" alt="Browser support for shadow DOM">
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h2>Popular implementations</h2>
+        <ul>
+            <li><strong>Google</strong> - Youtube, Translate, Music</li>
+            <li><strong>Netflix</strong> - ADs builder tool</li>
+            <li><strong>EA</strong> - Origin, ea.com</li>
+            <li><strong>Atlassian</strong> - cross framework UI library</li>
+            <li><strong>Samsung, Yandex</strong> - SamsungInternet and Yandex.Browser UI</li>
+            <li><strong>McDonalds</strong> - Menu Board in US</li>
+            <li><strong>WebVR, Ionic, Zeplin</strong></li>
+        </ul>
+    </section>
+
+    <section class="slide logos">
+        <h2>Tools</h2>
+        <a href="https://www.polymer-project.org/"><img class="logo" src="pictures/tools-polymer.png" alt="Polymer logo"></a>
+        <ul class="columns two next">
+            <li><a href="https://glimmerjs.com/"><img src="pictures/tools-glimmer.png" alt="Glimmerjs logo" class="logo"></a></li>
+            <li><a href="https://github.com/karol-f/vue-custom-element"><img src="pictures/tools-vue.png" alt="Vue custom element logo" class="logo"></a></li>
+            <li><a href="https://viperhtml.js.org/hyper.html"><img src="pictures/tools-hyper.svg" alt="hyperHTML logo" class="logo"></a></li>
+            <li><a href="https://github.com/Polymer/lit-element"><img src="pictures/tools-lit.png" alt="litElement logo" class="logo"></a></li>
+            <li><a href="https://stenciljs.com/"><img src="pictures/tools-stencil.png" alt="Stenciljs logo" class="logo"></a></li>
+            <li><a href="https://github.com/skatejs/skatejs"><img src="pictures/tools-skate.png" alt="Skatejs logo" class="logo"></a></li>
+        </ul>
+        <style>
+            .slide.logos li::before {
+                content: '';
+            }
+            .logos a {
+                background-image: none;
+                text-decoration: none;
+            }
+            .logo {
+                width: 80px;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Summary</h2>
+        <div class="columns two">
+            <ul>
+                <p><strong>PROS</strong></p>
+                <li>Ligtweight</li>
+                <li>Build tool not required</li>
+                <li>Works in all frameworks</li>
+                <li>Fast</li>
+                <li>Easy to read markup</li>
+            </ul>
+            <ul class="next">
+                <p><strong>CONS</strong></p>
+                <li>Not agreed best practices</li>
+                <li>Unfriendly with SSR</li>
+                <li>Unfriendly with css variables</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Useful links</h2>
+        <ul>
+            <li><a href="https://custom-elements-everywhere.com/">Custom elements everywhere</a></li>
+            <li><a href="https://www.webcomponents.org/elements">Existing custom elements</a></li>
+            <li><a href="https://github.com/WebComponents/webcomponentsjs">v1 polyfills</a></li>
+            <li><a href="https://github.com/w3c/webcomponents/blob/gh-pages/proposals/Template-Instantiation.md">Template instantiation proposal</a></li>
+        </ul>
+    </section>
+
+    <footer class="badge">
+        <a href="https://github.com/shower/shower">Fork me on GitHub</a>
+    </footer>
+
+    <div class="progress"></div>
+
+    <script src="shower/shower.min.js"></script>
+    <!-- Copyright © 2018 Yours Truly, Famous Inc. -->
+
+</body>
+</html>
