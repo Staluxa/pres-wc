@@ -20,9 +20,9 @@
 
     <section class="slide" id="cover">
         <figure>
-            <img class="cover" src="pictures/logo-2018.png" alt="2018 - Year of Web Components">
+            <img class="cover" src="pictures/logo-2018.jpg" alt="2018 - Year of Web Components">
             <figcaption class="copyright right white">
-                <a href="http://fiftyfootshadows.net/">© Dominik Kundel</a>
+                <a href="https://www.youtube.com/watch?v=SgnE3p1qF-c&t">© Dominik Kundel</a>
             </figcaption>
         </figure>
         <style>
@@ -34,9 +34,9 @@
 
     <section class="slide" id="cover-2">
         <figure>
-            <img class="cover" src="pictures/logo-2013.png" alt="2013 - Year of Web Components">
+            <img class="cover" src="pictures/logo-2013.jpg" alt="2013 - Year of Web Components">
             <figcaption class="copyright right white">
-                <a href="http://fiftyfootshadows.net/">© Dominik Kundel</a>
+                <a href="https://www.youtube.com/watch?v=SgnE3p1qF-c&t">© Dominik Kundel</a>
             </figcaption>
         </figure>
         <style>
@@ -215,16 +215,29 @@
         </ul>
     </section>
 
-    <section class="slide">
-        <figure>
-            <img class="cover" src="pictures/tools-17.png" alt="Browser support for custom elements">
-        </figure>
-    </section>
-
-    <section class="slide">
-        <figure>
-            <img class="cover" src="pictures/tools-18.png" alt="Browser support for custom elements">
-        </figure>
+    <section class="slide logos">
+        <h2>Tools</h2>
+        <a href="https://www.polymer-project.org/"><img class="logo" src="pictures/tools-polymer.png" alt="Polymer logo"></a>
+        <ul class="columns two next">
+            <li><a href="https://glimmerjs.com/"><img src="pictures/tools-glimmer.png" alt="Glimmerjs logo" class="logo"></a></li>
+            <li><a href="https://github.com/karol-f/vue-custom-element"><img src="pictures/tools-vue.png" alt="Vue custom element logo" class="logo"></a></li>
+            <li><a href="https://viperhtml.js.org/hyper.html"><img src="pictures/tools-hyper.svg" alt="hyperHTML logo" class="logo"></a></li>
+            <li><a href="https://github.com/Polymer/lit-element"><img src="pictures/tools-lit.png" alt="litElement logo" class="logo"></a></li>
+            <li><a href="https://stenciljs.com/"><img src="pictures/tools-stencil.png" alt="Stenciljs logo" class="logo"></a></li>
+            <li><a href="https://github.com/skatejs/skatejs"><img src="pictures/tools-skate.png" alt="Skatejs logo" class="logo"></a></li>
+        </ul>
+        <style>
+            .slide.logos li::before {
+                content: '';
+            }
+            .logos a {
+                background-image: none;
+                text-decoration: none;
+            }
+            .logo {
+                width: 80px;
+            }
+        </style>
     </section>
 
     <section class="slide">
@@ -236,7 +249,7 @@
                 <li>Build tool not required</li>
                 <li>Works in all frameworks</li>
                 <li>Fast</li>
-                <li>Easy to read</li>
+                <li>Easy to read markup</li>
             </ul>
             <ul class="next">
                 <p><strong>CONS</strong></p>
@@ -254,7 +267,6 @@
             <li><a href="https://www.webcomponents.org/elements">Existing custom elements</a></li>
             <li><a href="https://github.com/WebComponents/webcomponentsjs">v1 polyfills</a></li>
             <li><a href="https://github.com/w3c/webcomponents/blob/gh-pages/proposals/Template-Instantiation.md">Template instantiation proposal</a></li>
-            <li><a href="https://github.com/Polymer/lit-html">lit-html</a></li>
         </ul>
     </section>
 
